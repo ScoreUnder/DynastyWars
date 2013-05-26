@@ -26,7 +26,7 @@ public class DynastyWars extends JavaPlugin implements Listener {
 	public static Scoreboard board = manager.getNewScoreboard();
 	public static Team red = board.registerNewTeam("Red");
 	public static Team blue = board.registerNewTeam("Blue");
-	RoundCycling round = new RoundCycling(plugin);
+	private RoundCycling round = new RoundCycling(plugin);
 	
 	public void onEnable() {
 		round.startCount();
@@ -48,7 +48,6 @@ public class DynastyWars extends JavaPlugin implements Listener {
 		getCommand("join").setExecutor(new TeamExecutor());
 		getCommand("leave").setExecutor(new TeamExecutor());
 		log.info("[DynastyWars] Successfully loaded commands");
-		
 	}
 	
 	public void onDisable() {
@@ -59,8 +58,7 @@ public class DynastyWars extends JavaPlugin implements Listener {
 		return plugin;
 	}
 	
-	public void reloadSettings()
-	{
+	public void reloadSettings() {
 		reloadConfig();
 		saveConfig();
 	}

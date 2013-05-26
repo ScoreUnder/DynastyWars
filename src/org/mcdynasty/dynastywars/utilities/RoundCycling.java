@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 import org.mcdynasty.dynastywars.DynastyWars;
 
 public class RoundCycling {
-	private static DynastyWars plugin;
+	private final DynastyWars plugin;
+
 	public RoundCycling(DynastyWars plugin) {
-	RoundCycling.plugin = plugin;
-	
+		this.plugin = plugin;
 	}
-	
-	public static void startGame() {
+
+	public void startGame() {
 		unloadWorld("World"); 
 		deleteDir(new File("World"));
 		WorldCreator wc = new WorldCreator("World");
@@ -28,8 +28,8 @@ public class RoundCycling {
 		World world = Bukkit.getServer().getWorld("World");
 		for(Player p : Bukkit.getOnlinePlayers()){
 			if(DynastyWars.red.hasPlayer(p) || DynastyWars.blue.hasPlayer(p)) {
-			final int topY = plugin.getServer().getWorld("World").getHighestBlockYAt(0, 0);
-			p.teleport(new Location(world, 0, topY, 0));
+				final int topY = plugin.getServer().getWorld("World").getHighestBlockYAt(0, 0);
+				p.teleport(new Location(world, 0, topY, 0));
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class RoundCycling {
 		}, 0L, 20L);
 	}
 	
-	private static void deleteDir(File dir) {
+	private void deleteDir(File dir) {
 		System.gc();
 		File file2 = new File(plugin.getServer().getWorldContainer(), "World");
 
@@ -79,7 +79,7 @@ public class RoundCycling {
 			File[] files = dir.listFiles();
 			for(File file : files) {
 				if(file.isDirectory()) {
-					RoundCycling.deleteDir(file);
+					deleteDir(file);
 					file.delete();
 				} else {
 					file.delete();
@@ -89,7 +89,7 @@ public class RoundCycling {
 			dir.delete();
 		}
 	}
-	public static void unloadWorld(String world){
+	public void unloadWorld(String world){
 		System.gc();
 		if(Bukkit.getWorld(world) instanceof World){
 			for(Chunk c : Bukkit.getWorld(world).getLoadedChunks()){

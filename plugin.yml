@@ -1,0 +1,9 @@
+main: org.mcdynasty.dynastywars.DynastyWars
+name: DynastyWars
+version: 1.0
+description: DynastyWars
+commands:
+   join:
+      description: join the game.
+   leave:
+      description: leave the game.
